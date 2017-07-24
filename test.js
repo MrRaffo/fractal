@@ -1,3 +1,4 @@
+/*
 function testRandomComplex() {
   return [Math.floor((Math.random() * 100) - 50), Math.floor((Math.random() * 100) - 50)];
 }
@@ -25,7 +26,7 @@ function testFunc(func, iterations) {
     console.log("Test for " + func.name + " [" + c1 + "] [" + c2 + "]: " + func(c1, c2));
   }
 }
-
+*/
 /*
 console.log("iteration: " + iteratePoint([0.5, 0.85], [0, 0], 20));
 console.log("iteration: " + iteratePoint([0.85, 0.85], [-0.75, -0.25], 20));
@@ -42,5 +43,6 @@ alert("ready");
 grid = makeJuliaSet([0.25, 0.5], 20, 400);
 console.log("done: " + grid.length + " " + grid[0].length);
 */
-console.log("iteration: " + iteratePoint([0, 0], [0.25, 0.5], 3));
-console.log("normalize: " + normalizeCoord(600, 400, 800));
+
+//console.log("iteration: " + iteratePoint([0, 0], [0.25, 0.5], 3));
+//console.log("normalize: " + normalizeCoord(600, 400, 800));

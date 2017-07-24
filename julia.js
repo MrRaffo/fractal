@@ -1,4 +1,5 @@
-Julia = {
+/*
+FractalPlot = {
 
   init: function(size) {
     this.w = size;
@@ -15,7 +16,7 @@ Julia = {
     this.img = this.plotCtx.createImageData(this.w, this.h);
 
     this.button = document.getElementById("drawSetButton");
-    this.button.addEventListener("click", Julia.buttonClick);
+    this.button.addEventListener("click", FractalPlot.buttonClick);
 
     this.colors = [];
     this.genRandomColors();
@@ -44,12 +45,12 @@ Julia = {
     real = real / 1500;
     imag = imag / 1500;
 
-    Julia.drawSet([real, imag], 255);
+    FractalPlot.drawSet([real, imag], 255);
   },
 
   drawSet: function(addition, iterations) {
 
-    let grid = makeJuliaSet(addition, iterations, this.size);
+    let grid = makeJuliaSubset(addition, iterations, this.size, -1.5, 1.5);
     let component = Math.floor(255 / iterations);
 
     for (y = 0; y < grid.length; y++) {
@@ -70,9 +71,9 @@ Julia = {
   animation: function() {
     let real = Math.sin(this.detail/1000);
     let imag = Math.cos(this.detail/1000);
-    Julia.drawSet([real, imag], 255);
+    FractalPlot.drawSet([real, imag], 255);
     this.detail++;
-    requestAnimationFrame(Julia.animation);
+    requestAnimationFrame(FractalPlot.animation);
   },
 
   printGrid: function(grid) {
@@ -82,6 +83,7 @@ Julia = {
   }
 }
 
-Julia.init(800);
-//Julia.drawSet([0.25, 0.5], 255);
-//Julia.animation();
+FractalPlot.init(800);
+//FractalPlot.drawSet([0.25, 0.5], 255);
+//FractalPlot.animation();
+*/

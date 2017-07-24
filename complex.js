@@ -58,6 +58,21 @@ function makeJuliaSet(addition, maxIterations, gridSize) {
   return grid;
 }
 
+// return a grid between the given ranges of the julia set (from [min, min i] to [max, max i])
+function makeJuliaSubset(addition, maxIterations, gridSize, min, max) {
+  let grid = [];
+  let step = (max - min) / gridSize;
+  for (y = 0; y < gridSize; y++) {
+    let row = [];
+    for (x = 0; x < gridSize; x++) {
+      let point = [min + step * x, max - (step * y)];   // remember y increases downwards on screen
+      row.push(iteratePoint(point, addition, maxIterations));
+    }
+    grid.push(row);
+  }
+  return grid;
+}
+
 function juliaIterate(complex, addition, limit, maxIterations) {
   let res = juliaFunction(complex, addition);
   for (i = 0; i < maxIterations; i++) {
