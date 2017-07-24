@@ -72,5 +72,13 @@ Fractal = {
       grid.push(row);
     }
     return grid;
+  },
+
+  generateFractal: function(add_component, maxIterations) {
+    if (this.type == "julia") {
+      this.generateJuliaSet(add_component, maxIterations);
+    } else if (this.type == "mandelbrot") {
+      this.generateMandelbrotSet(maxIterations);
+    }
   }
 }

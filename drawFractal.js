@@ -66,7 +66,6 @@ DrawFractal = {
 }
 
 DrawFractal.init();
-Fractal.setRealRange(0.4, 0.5);
-Fractal.setImagRange(0.3, 0.4);
-DrawFractal.drawMandelbrot(255);
-alert("done");
+Fractal.setRealRange(-1.5, 1.5);
+Fractal.setImagRange(-1.5, 1.5);
+DrawFractal.drawJulia([0.25, 0.50], 200);
