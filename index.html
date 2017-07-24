@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+    <body style="background-color:#2f4f4f;">
+      <meta charset="utf-8"/>
+      <title>Canvas Template</title>
+<!--<div id="div" style="position: absolute; top: 50px; height: 640px; width: 800px; left: 50% margin: -320px 0 0 -400px;"> -->
+      <div id="div1" style="margin-right: auto; margin-top: 20px; margin-left: auto; width: 800px;">
+        <style type="text/css">
+          * { padding: 10, margin: 1 }
+          canvas { border: 1px solid white; }
+          canvas { background: black; display: block; top: 100px; left: 0px; }
+        </style>
+        <canvas id="screenCanvas" width="800" height="800"></canvas>
+      </div>
+
+      <div id="div2" style="margin-right: auto; margin-top: 20px; margin-left: auto; width: 800px;">
+        <style type="text/css">
+        * { padding: 10; margin: 1 }
+        canvas { border: 1px solid white; }
+        canvas { background: black; display: block; float: left; }
+      </style>
+      <canvas id="statCanvas" width="300" height="100"></canvas>
+      <input type="range" id="realVal" min="-1500" max="1500" value="0" step="1" />
+      <input type="range" id="imagVal" min="-1500" max="1500" value="0" step="1" />
+      <button type="button" id="drawSetButton">Draw Set</button>
+    </div>
+
+      <script>"use strict";</script>
+      <script type="text/javascript" src="utility.js"></script>
+      <script type="text/javascript" src="display.js"></script>
+      <script type="text/javascript" src="complex.js"></script>
+      <script type="text/javascript" src="julia.js"></script>
+      <script type="text/javascript" src="test.js"></script>
+   </body>
+
+</html>
