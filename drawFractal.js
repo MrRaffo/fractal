@@ -15,6 +15,8 @@ DrawFractal = {
     this.plotCtx = this.plotCanvas.getContext('2d');
     this.plotImage = this.plotCtx.createImageData(this.w, this.h);
 
+    this.button = document.getElementById("drawSetButton");
+    this.button.addEventListener("click", DrawFractal.buttonClick);
 
     this.colors = [];
     this.genRandomColors();
@@ -32,6 +34,16 @@ DrawFractal = {
     imgData[index+1] = color[1];
     imgData[index+2] = color[2];
     imgData[index+3] = 255;
+  },
+
+  buttonClick: function() {
+    let real = document.getElementById("realVal").value;
+    let imag = document.getElementById("imagVal").value;
+
+    real = real / 1500;
+    imag = imag / 1500;
+
+    DrawFractal.drawJulia([real, imag], 255);
   },
 
   drawJulia: function(addition, iterations) {
