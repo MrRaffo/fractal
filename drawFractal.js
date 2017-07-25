@@ -1,3 +1,6 @@
+const MAX_REAL = 1.5;
+const MAX_IMAG = 1.5;
+
 DrawFractal = {
 
   init: function() {
@@ -15,8 +18,10 @@ DrawFractal = {
     this.plotCtx = this.plotCanvas.getContext('2d');
     this.plotImage = this.plotCtx.createImageData(this.w, this.h);
 
-    this.button = document.getElementById("drawSetButton");
-    this.button.addEventListener("click", DrawFractal.buttonClick);
+    this.drawButton = document.getElementById("drawSetButton");
+    this.drawButton.addEventListener("click", DrawFractal.drawButtonClick);
+
+    Control.init();
 
     this.colors = [];
     this.genRandomColors();
@@ -28,6 +33,12 @@ DrawFractal = {
     }
   },
 
+  genColors: function() {
+    for (i = 0; i < 255; i++) {
+      this.colors.push([i, i, 255-i]);
+    }
+  },
+
   plotColor: function(imgData, x, y, color) {
     let index = (y * this.w + x) * 4;
     imgData[index] = color[0];
@@ -36,15 +47,17 @@ DrawFractal = {
     imgData[index+3] = 255;
   },
 
-  buttonClick: function() {
-    let real = document.getElementById("realVal").value;
-    let imag = document.getElementById("imagVal").value;
+  drawButtonClick: function() {
+    let real = Number(document.getElementById("realVal").value);
+    let imag = Number(document.getElementById("imagVal").value);
+    let scale = document.getElementById("scaleVal").value;
 
-    real = real / 1500;
-    imag = imag / 1500;
+    let type = document.getElementById("fractalType").value;
+    Fractal.setType(type);
 
     Fractal.setAdditionComponent([real, imag]);
-    DrawFractal.drawJulia(255);
+
+    DrawFractal.drawFractal(255);
     console.log(Fractal.getRealRange());
   },
 
@@ -76,8 +89,25 @@ DrawFractal = {
     }
     this.plotCtx.putImageData(this.plotImage, 0, 0);
     this.screenCtx.drawImage(this.plotCanvas, 0, 0, this.w, this.h);
+  },
+
+  drawFractal: function(iterations) {
+    let grid = Fractal.generateFractal(iterations);
+    for (y = 0; y < grid.length; y++) {
+      for (x = 0; x < grid[0].length; x++) {
+        if (grid[y][x] == 0) {
+          this.plotColor(this.plotImage.data, x, y, [0, 0, 0]);
+        } else {
+          this.plotColor(this.plotImage.data, x, y, this.colors[grid[y][x] % 255]);
+        }
+      }
+    }
+    this.plotCtx.putImageData(this.plotImage, 0, 0);
+    this.screenCtx.drawImage(this.plotCanvas, 0, 0, this.w, this.h);
   }
 }
+
+
 
 DrawFractal.init();
 Fractal.setRealRange(-1.5, 1.5);

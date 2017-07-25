@@ -1,39 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Fractals</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
-    <body style="background-color:#2f4f4f;">
-      <meta charset="utf-8"/>
-      <title>Canvas Template</title>
-<!--<div id="div" style="position: absolute; top: 50px; height: 640px; width: 800px; left: 50% margin: -320px 0 0 -400px;"> -->
-      <div id="div1" style="margin-right: auto; margin-top: 20px; margin-left: auto; width: 800px;">
-        <style type="text/css">
-          * { padding: 10, margin: 1 }
-          canvas { border: 1px solid white; }
-          canvas { background: black; display: block; top: 100px; left: 0px; }
-        </style>
-        <canvas id="screenCanvas" width="640" height="640"></canvas>
+
+  <body>
+      <div class="container">
+        <title>Fractals</title>
+        <div class="info"><b>STATS</b></div>
+        <div class="display">
+          <canvas id="screenCanvas" width="640px" height="640"></canvas>
+        </div>
+        <div class="info"><b>CONTROLS</b>
+          <p>Real</p>
+
+          <p>
+            <button type="button" id="realStepMinus">-</button>
+            <input type="range" id="realVal" min="-1.5" max="1.5" value="0" step="0.01" />
+            <button type="button" id="realStepPlus">+</button>
+          </p>
+
+          <p>Imaginary</p>
+          <p>
+            <button type="button" id="imagStepMinus">-</button>
+            <input type="range" id="imagVal" min="-1.5" max="1.5" value="0" step="0.01" />
+            <button type="button" id="imagStepPlus">+</button>
+          </p>
+
+          <p>Scale</p>
+          <p>
+            <button type="button" id="scaleStepMinus">-</button>
+            <input type="range" id="scaleVal" min="-2" max="2" value="0" step="0.01" />
+            <button type="button" id="scaleStepPlus">+</button>
+          </p>
+
+          <p>
+          <select id="fractalType">
+           <option value="julia">Julia</option>
+           <option value="mandelbrot">Mandelbrot</option>
+          </select>
+
+          <button type="button" id="drawSetButton">Draw</button>
+          </p>
+
+
+        </div>
       </div>
 
-      <div id="div2" style="margin-right: auto; margin-top: 20px; margin-left: auto; width: 800px;">
-        <style type="text/css">
-        * { padding: 10; margin: 1 }
-        canvas { border: 1px solid white; }
-        canvas { background: black; display: block; float: left; }
-      </style>
-      <canvas id="statCanvas" width="300" height="100"></canvas>
-      <input type="range" id="realVal" min="-1500" max="1500" value="0" step="1" />
-      <input type="range" id="imagVal" min="-1500" max="1500" value="0" step="1" />
-      <button type="button" id="drawSetButton">Draw Set</button>
-    </div>
-
+      <!-- SCRIPTS -->
       <script>"use strict";</script>
       <script type="text/javascript" src="utility.js"></script>
       <script type="text/javascript" src="display.js"></script>
       <script type="text/javascript" src="complex.js"></script>
       <script type="text/javascript" src="fractal.js"></script>
+      <script type="text/javascript" src="controls.js"></script>
       <script type="text/javascript" src="drawFractal.js"></script>
       <script type="text/javascript" src="test.js"></script>
-   </body>
+      <!-- SCRIPTS -->
 
+  </body>
 </html>

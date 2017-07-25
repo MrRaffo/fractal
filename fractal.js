@@ -92,11 +92,11 @@ Fractal = {
     return grid;
   },
 
-  generateFractal: function(add_component, maxIterations) {
+  generateFractal: function(maxIterations) {
     if (this.type == "julia") {
-      this.generateJuliaSet(maxIterations);
+      return this.generateJuliaSet(maxIterations);
     } else if (this.type == "mandelbrot") {
-      this.generateMandelbrotSet(maxIterations);
+      return this.generateMandelbrotSet(maxIterations);
     }
   }
 }
