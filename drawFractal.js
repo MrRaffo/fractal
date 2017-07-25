@@ -43,11 +43,13 @@ DrawFractal = {
     real = real / 1500;
     imag = imag / 1500;
 
-    DrawFractal.drawJulia([real, imag], 255);
+    Fractal.setAdditionComponent([real, imag]);
+    DrawFractal.drawJulia(255);
+    console.log(Fractal.getRealRange());
   },
 
-  drawJulia: function(addition, iterations) {
-    let grid = Fractal.generateJuliaSet(addition, iterations);
+  drawJulia: function(iterations) {
+    let grid = Fractal.generateJuliaSet(iterations);
     for (y = 0; y < grid.length; y++) {
       for (x = 0; x < grid[0].length; x++) {
         if (grid[y][x] == 0) {
@@ -80,4 +82,5 @@ DrawFractal = {
 DrawFractal.init();
 Fractal.setRealRange(-1.5, 1.5);
 Fractal.setImagRange(-1.5, 1.5);
-DrawFractal.drawJulia([0.25, 0.50], 200);
+//Fractal.setAdditionComponent([0.25, 0.5]);
+DrawFractal.drawJulia(200);
