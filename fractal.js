@@ -1,7 +1,7 @@
 Fractal = {
 
   //
-  // TYPE TO GENERATE
+  // FRACTAL PARAMETERS
   //
 
   type: "julia",
@@ -9,10 +9,23 @@ Fractal = {
     this.type = type;
   },
 
-  //
-  // RANGE (AREA OF FRACTAL TO GENERATE)
-  //
+  getType: function() {
+    return this.type;
+  },
 
+  // size of the fractal grid to generate
+  width: 800,
+  height: 800,
+  setDrawSize: function(width, height) {
+    this.width = width;
+    this.height = height;
+  },
+
+  getDrawSize: function() {
+    return [this.width, this.height];
+  },
+
+  // range of fractal to draw
   realRangeMin: -1.5,
   realRangeMax: 1.5,
   setRealRange: function(min, max) {
@@ -35,19 +48,6 @@ Fractal = {
     return [this.imagRangeMin, this.imagRangeMax];
   },
 
-  //
-  // SIZE OF GRID TO GENERATE
-  //
-
-  width: 800,
-  height: 800,
-  setDrawSize: function(width, height) {
-    this.width = width;
-    this.height = height;
-  },
-
-  // generate the grid
-
   // this is the additional component to use for julia sets
   add_component: [0, 0],
   setAdditionComponent: function(add_component) {
@@ -58,7 +58,27 @@ Fractal = {
     return this.add_component;
   },
 
-  generateJuliaSet: function(maxIterations) {
+  iterations: 100,
+  setIterations: function(iterations) {
+    this.iterations = iterations;
+  },
+
+  getIterations: function() {
+    return this.iterations;
+  },
+
+  //
+  // GRID GENERATION
+  //
+
+  // time taken to generate
+
+  genTime: 0,
+  getGenTime: function() {
+    return this.genTime;
+  },
+
+  generateJuliaSet: function() {
     let grid = [];
     let xStep = (this.realRangeMax - this.realRangeMin) / this.width;
     let yStep = (this.imagRangeMax - this.imagRangeMin) / this.height;
@@ -68,14 +88,14 @@ Fractal = {
       for (x = 0; x < this.width; x++) {
         // the imaginary component is calculated this way as y increases DOWN the screen
         let point = [this.realRangeMin + (xStep * x), this.imagRangeMax - (yStep * y)];
-        row.push(iteratePoint(point, this.add_component, maxIterations));
+        row.push(iteratePoint(point, this.add_component, this.iterations));
       }
       grid.push(row);
     }
     return grid;
   },
 
-  generateMandelbrotSet: function(maxIterations) {
+  generateMandelbrotSet: function() {
     let grid = [];
     let xStep = (this.realRangeMax - this.realRangeMin) / this.width;
     let yStep = (this.imagRangeMax - this.imagRangeMin) / this.height;
@@ -85,18 +105,22 @@ Fractal = {
       for (x = 0; x < this.width; x++) {
         // the imaginary component is calculated this way as y increases DOWN the screen
         let add_point = [this.realRangeMin + (xStep * x), this.imagRangeMax - (yStep * y)];
-        row.push(iteratePoint([0, 0], add_point, maxIterations));
+        row.push(iteratePoint([0, 0], add_point, this.iterations));
       }
       grid.push(row);
     }
     return grid;
   },
 
-  generateFractal: function(maxIterations) {
+  generateFractal: function() {
+    let dt = Date.now();
+    let grid;
     if (this.type == "julia") {
-      return this.generateJuliaSet(maxIterations);
+      grid = this.generateJuliaSet();
     } else if (this.type == "mandelbrot") {
-      return this.generateMandelbrotSet(maxIterations);
+      grid = this.generateMandelbrotSet();
     }
+    this.genTime = Date.now() - dt;
+    return grid;
   }
 }

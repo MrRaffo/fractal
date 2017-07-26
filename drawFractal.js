@@ -1,5 +1,6 @@
 const MAX_REAL = 1.5;
 const MAX_IMAG = 1.5;
+const DEFAULT_ITERATIONS = 250;
 
 DrawFractal = {
 
@@ -23,19 +24,20 @@ DrawFractal = {
 
     Control.init();
 
-    this.colors = [];
     this.genRandomColors();
   },
 
   genRandomColors: function() {
+    this.colors = [];
     for (i = 0; i < 255; i++) {
       this.colors.push([Utility.makeRandomComponent(0, 50), Utility.makeRandomComponent(100, 150), Utility.makeRandomComponent(200, 255)]);
     }
   },
 
   genColors: function() {
+    this.colors = [];
     for (i = 0; i < 255; i++) {
-      this.colors.push([i, i, 255-i]);
+      this.colors.push([i, 0, 0]);
     }
   },
 
@@ -48,21 +50,30 @@ DrawFractal = {
   },
 
   drawButtonClick: function() {
+
+    // read parameters
     let real = Number(document.getElementById("realVal").value);
     let imag = Number(document.getElementById("imagVal").value);
-    let scale = document.getElementById("scaleVal").value;
-
+    let iter = Number(document.getElementById("iterVal").value);
+    let scale = Number(document.getElementById("scaleVal").value);
     let type = document.getElementById("fractalType").value;
-    Fractal.setType(type);
 
+
+    // set parameters
+    Fractal.setType(type);
+    Fractal.setIterations(iter);
     Fractal.setAdditionComponent([real, imag]);
 
-    DrawFractal.drawFractal(255);
-    console.log(Fractal.getRealRange());
+    // draw the fractal
+    DrawFractal.drawFractal();
+
+    // generate the report
+    Report.generate();
+    //Report.show();
   },
 
-  drawJulia: function(iterations) {
-    let grid = Fractal.generateJuliaSet(iterations);
+  drawJulia: function() {
+    let grid = Fractal.generateJuliaSet();
     for (y = 0; y < grid.length; y++) {
       for (x = 0; x < grid[0].length; x++) {
         if (grid[y][x] == 0) {
@@ -76,8 +87,8 @@ DrawFractal = {
     this.screenCtx.drawImage(this.plotCanvas, 0, 0, this.w, this.h);
   },
 
-  drawMandelbrot: function(iterations) {
-    let grid = Fractal.generateMandelbrotSet(iterations);
+  drawMandelbrot: function() {
+    let grid = Fractal.generateMandelbrotSet();
     for (y = 0; y < grid.length; y++) {
       for (x = 0; x < grid[0].length; x++) {
         if (grid[y][x] == 0) {
@@ -91,8 +102,8 @@ DrawFractal = {
     this.screenCtx.drawImage(this.plotCanvas, 0, 0, this.w, this.h);
   },
 
-  drawFractal: function(iterations) {
-    let grid = Fractal.generateFractal(iterations);
+  drawFractal: function() {
+    let grid = Fractal.generateFractal();
     for (y = 0; y < grid.length; y++) {
       for (x = 0; x < grid[0].length; x++) {
         if (grid[y][x] == 0) {
@@ -110,7 +121,6 @@ DrawFractal = {
 
 
 DrawFractal.init();
-Fractal.setRealRange(-1.5, 1.5);
-Fractal.setImagRange(-1.5, 1.5);
-//Fractal.setAdditionComponent([0.25, 0.5]);
-DrawFractal.drawJulia(200);
+//Fractal.setRealRange(-1.27, -1.268);
+//Fractal.setImagRange(0.044, 0.046);
+DrawFractal.drawJulia();

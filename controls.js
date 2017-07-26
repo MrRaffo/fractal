@@ -5,15 +5,16 @@ Control = {
 
   init: function() {
 
-
     this.realSlider = document.getElementById("realVal");
     this.imagSlider = document.getElementById("imagVal");
     this.scaleSlider = document.getElementById("scaleVal");
+    this.iterSlider = document.getElementById("iterVal");
 
     // reset the slider values if the page has been refreshed
     this.realSlider.value = "0";
     this.imagSlider.value = "0";
     this.scaleSlider.value = "0";
+    this.iterSlider.value = "250";
 
     // add code for the slider buttons
     this.realStepMinusButton = document.getElementById("realStepMinus");
@@ -34,9 +35,18 @@ Control = {
     this.scaleStepPlusButton = document.getElementById("scaleStepPlus");
     this.scaleStepPlusButton.addEventListener("click", Control.scaleStepPlus);
 
+    this.iterStepMinusButton = document.getElementById("iterStepMinus");
+    this.iterStepMinusButton.addEventListener("click", Control.iterStepMinus);
+
+    this.iterStepPlusButton = document.getElementById("iterStepPlus");
+    this.iterStepPlusButton.addEventListener("click", Control.iterStepPlus);
+
   },
 
   // CONTROL FUNCTIONS
+
+  // TODO - the problem with += cases is that slider.value is a STRING
+
   realStepMinus: function() {
     Control.realSlider.value -= SLIDER_STEP;
     if (Control.realSlider.value < -MAX_VAL) {
@@ -60,8 +70,22 @@ Control = {
 
   imagStepPlus: function() {
     Control.imagSlider.value += SLIDER_STEP;
-    if (Control.imagSlider.value > MAX_VAL) {
+    if (Control.imagSlider.value > MAX_VAL) {;
       Control.imagSlider.value = MAX_VAL;
+    }
+  },
+
+  iterStepMinus: function() {
+    Control.iterSlider.value -= 10;
+    if (Control.iterSlider.value < 0) {
+      Control.iterSlider.value = 0;
+    }
+  },
+
+  iterStepPlus: function() {
+    Control.iterSlider.value += 10;
+    if (Control.iterSlider.value > 2000) {;
+      Control.iterSlider.value = 2000;
     }
   },
 

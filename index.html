@@ -9,10 +9,18 @@
   <body>
       <div class="container">
         <title>Fractals</title>
-        <div class="info"><b>STATS</b></div>
-        <div class="display">
-          <canvas id="screenCanvas" width="640px" height="640"></canvas>
+
+        <!-- DISPLAY THE STATS OF THE LAST DRAW -->
+        <div class="info"><b>STATISTICS</b>
+          <canvas id="statCanvas" width="300px" height="600px"></canvas>
         </div>
+
+        <!-- DISPLAY FOR THE FRACTAL GENERATED -->
+        <div class="display">
+          <canvas id="screenCanvas" width="640px" height="640px"></canvas>
+        </div>
+
+        <!-- CONTROL PANEL TO ALLOW USER TO SPECIFY FRACTAL PARAMETERS -->
         <div class="info"><b>CONTROLS</b>
           <p>Real</p>
 
@@ -36,6 +44,13 @@
             <button type="button" id="scaleStepPlus">+</button>
           </p>
 
+          <p>Iterations</p>
+          <p>
+            <button type="button" id="iterStepMinus">-</button>
+            <input type="range" id="iterVal" min="0" max="2000" value="200" step="10" />
+            <button type="button" id="iterStepPlus">+</button>
+          </p>
+
           <p>
           <select id="fractalType">
            <option value="julia">Julia</option>
@@ -56,6 +71,7 @@
       <script type="text/javascript" src="complex.js"></script>
       <script type="text/javascript" src="fractal.js"></script>
       <script type="text/javascript" src="controls.js"></script>
+      <script type="text/javascript" src="report.js"></script>
       <script type="text/javascript" src="drawFractal.js"></script>
       <script type="text/javascript" src="test.js"></script>
       <!-- SCRIPTS -->
