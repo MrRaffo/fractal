@@ -41,6 +41,12 @@ Control = {
     this.iterStepPlusButton = document.getElementById("iterStepPlus");
     this.iterStepPlusButton.addEventListener("click", Control.iterStepPlus);
 
+    this.zoomInButton = document.getElementById("zoomInButton");
+    this.zoomInButton.addEventListener("click", DrawFractal.zoomIn);
+
+    this.zoomOutButton = document.getElementById("zoomOutButton");
+    this.zoomOutButton.addEventListener("click", DrawFractal.zoomOut);
+
   },
 
   // CONTROL FUNCTIONS

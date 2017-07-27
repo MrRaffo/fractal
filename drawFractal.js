@@ -1,6 +1,7 @@
 const MAX_REAL = 1.5;
 const MAX_IMAG = 1.5;
 const DEFAULT_ITERATIONS = 250;
+const ZOOM_FACTOR = 1.1;
 
 DrawFractal = {
 
@@ -27,6 +28,7 @@ DrawFractal = {
     Control.init();
 
     this.genRandomColors();
+    //this.genRedscale();
   },
 
   genRandomColors: function() {
@@ -102,6 +104,60 @@ DrawFractal = {
 
   },
 
+  zoomIn: function() {
+    let realRange = Fractal.getRealRange();
+    let imagRange = Fractal.getImagRange();
+
+    let centreRangeX = realRange[1] - realRange[0];
+    let centrePointX = (realRange[1] + realRange[0]) / 2;
+    let centre_x = centreRangeX / 2;
+    let newRangeX = centreRangeX / ZOOM_FACTOR;
+    let new_x1 = centrePointX - newRangeX / 2;
+    let new_x2 = centrePointX + newRangeX / 2;
+
+    let centreRangeY = imagRange[1] - imagRange[0];
+    let centrePointY = (imagRange[1] + imagRange[0]) / 2;
+    let centre_y = centreRangeY / 2;
+    let newRangeY = centreRangeY / ZOOM_FACTOR;
+    let new_y1 = centrePointY - newRangeY / 2;
+    let new_y2 = centrePointY + newRangeY / 2;
+
+    console.log(realRange);
+    console.log([new_x1, new_x2]);
+
+    Fractal.setRealRange(new_x1, new_x2);
+    Fractal.setImagRange(new_y1, new_y2);
+    DrawFractal.drawFractal();
+    Report.generate();
+  },
+
+  zoomOut: function() {
+    let realRange = Fractal.getRealRange();
+    let imagRange = Fractal.getImagRange();
+
+    let centreRangeX = realRange[1] - realRange[0];
+    let centrePointX = (realRange[1] + realRange[0]) / 2;
+    let centre_x = centreRangeX / 2;
+    let newRangeX = centreRangeX * ZOOM_FACTOR;
+    let new_x1 = centrePointX - newRangeX / 2;
+    let new_x2 = centrePointX + newRangeX / 2;
+
+    let centreRangeY = imagRange[1] - imagRange[0];
+    let centrePointY = (imagRange[1] + imagRange[0]) / 2;
+    let centre_y = centreRangeY / 2;
+    let newRangeY = centreRangeY * ZOOM_FACTOR;
+    let new_y1 = centrePointY - newRangeY / 2;
+    let new_y2 = centrePointY + newRangeY / 2;
+
+    console.log(realRange);
+    console.log([new_x1, new_x2]);
+
+    Fractal.setRealRange(new_x1, new_x2);
+    Fractal.setImagRange(new_y1, new_y2);
+    DrawFractal.drawFractal();
+    Report.generate();
+  },
+
   drawJulia: function() {
     this.curGrid = Fractal.generateJuliaSet();
     for (y = 0; y < this.curGrid.length; y++) {
@@ -147,8 +203,6 @@ DrawFractal = {
     this.screenCtx.drawImage(this.plotCanvas, 0, 0, this.w, this.h);
   }
 }
-
-
 
 DrawFractal.init();
 //Fractal.setRealRange(-1.27, -1.268);

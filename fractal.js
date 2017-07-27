@@ -48,6 +48,7 @@ Fractal = {
     return [this.imagRangeMin, this.imagRangeMax];
   },
 
+
   // this is the additional component to use for julia sets
   add_component: [0, 0],
   setAdditionComponent: function(add_component) {
