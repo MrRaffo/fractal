@@ -22,6 +22,8 @@ DrawFractal = {
     this.drawButton = document.getElementById("drawSetButton");
     this.drawButton.addEventListener("click", DrawFractal.drawButtonClick);
 
+    this.screenCanvas.addEventListener("click", DrawFractal.centreOnPoint);
+
     Control.init();
 
     this.genRandomColors();
@@ -34,10 +36,17 @@ DrawFractal = {
     }
   },
 
-  genColors: function() {
+  genRedscale: function() {
     this.colors = [];
     for (i = 0; i < 255; i++) {
       this.colors.push([i, 0, 0]);
+    }
+  },
+
+  genGrayscale: function() {
+    this.colors = [];
+    for (i = 0; i < 255; i++) {
+      this.colors.push([i, i, i]);
     }
   },
 
@@ -50,7 +59,6 @@ DrawFractal = {
   },
 
   drawButtonClick: function() {
-
     // read parameters
     let real = Number(document.getElementById("realVal").value);
     let imag = Number(document.getElementById("imagVal").value);
@@ -69,17 +77,39 @@ DrawFractal = {
 
     // generate the report
     Report.generate();
-    //Report.show();
+  },
+
+  curGrid: [],
+
+  centreOnPoint: function(e) {
+    let rect = DrawFractal.screenCanvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    // calculate new range values:
+    let realRange = Fractal.getRealRange();
+    let imagRange = Fractal.getImagRange();
+
+    // get new centre point in terms of ranges:
+    let real_dx = ((x - rect.width / 2) / rect.width) * (realRange[1] - realRange[0]);
+    Fractal.setRealRange(realRange[0] + real_dx, realRange[1] + real_dx);
+
+    let imag_dy = ((y - rect.height / 2) / rect.height) * (imagRange[1] - imagRange[0]);
+    Fractal.setImagRange(imagRange[0] - imag_dy, imagRange[1] - imag_dy);
+
+    DrawFractal.drawFractal();
+    Report.generate();
+
   },
 
   drawJulia: function() {
-    let grid = Fractal.generateJuliaSet();
-    for (y = 0; y < grid.length; y++) {
-      for (x = 0; x < grid[0].length; x++) {
-        if (grid[y][x] == 0) {
+    this.curGrid = Fractal.generateJuliaSet();
+    for (y = 0; y < this.curGrid.length; y++) {
+      for (x = 0; x < this.curGrid[0].length; x++) {
+        if (this.curGrid[y][x] == 0) {
           this.plotColor(this.plotImage.data, x, y, [0, 0, 0]);
         } else {
-          this.plotColor(this.plotImage.data, x, y, this.colors[grid[y][x] % 255]);
+          this.plotColor(this.plotImage.data, x, y, this.colors[this.curGrid[y][x] % 255]);
         }
       }
     }
@@ -88,13 +118,13 @@ DrawFractal = {
   },
 
   drawMandelbrot: function() {
-    let grid = Fractal.generateMandelbrotSet();
-    for (y = 0; y < grid.length; y++) {
-      for (x = 0; x < grid[0].length; x++) {
-        if (grid[y][x] == 0) {
+    this.curGrid = Fractal.generateMandelbrotSet();
+    for (y = 0; y < this.curGrid.length; y++) {
+      for (x = 0; x < this.curGrid[0].length; x++) {
+        if (this.curGrid[y][x] == 0) {
           this.plotColor(this.plotImage.data, x, y, [0, 0, 0]);
         } else {
-          this.plotColor(this.plotImage.data, x, y, this.colors[grid[y][x] % 255]);
+          this.plotColor(this.plotImage.data, x, y, this.colors[this.curGrid[y][x] % 255]);
         }
       }
     }
@@ -103,13 +133,13 @@ DrawFractal = {
   },
 
   drawFractal: function() {
-    let grid = Fractal.generateFractal();
-    for (y = 0; y < grid.length; y++) {
-      for (x = 0; x < grid[0].length; x++) {
-        if (grid[y][x] == 0) {
+    this.curGrid = Fractal.generateFractal();
+    for (y = 0; y < this.curGrid.length; y++) {
+      for (x = 0; x < this.curGrid[0].length; x++) {
+        if (this.curGrid[y][x] == 0) {
           this.plotColor(this.plotImage.data, x, y, [0, 0, 0]);
         } else {
-          this.plotColor(this.plotImage.data, x, y, this.colors[grid[y][x] % 255]);
+          this.plotColor(this.plotImage.data, x, y, this.colors[this.curGrid[y][x] % 255]);
         }
       }
     }
